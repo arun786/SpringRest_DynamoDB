@@ -1,2 +1,39 @@
 server:
   port: 8090
+
+spring:
+  profiles:
+    active: integration
+
+---
+
+spring:
+  profiles: local
+
+dynamo:
+  details:
+    tableName: "TokenCounter"
+    region: "us-west-1"
+    endPoint: "http://localhost:8042"
+    maxRetry: 3
+profile:
+  counter:
+    ttl:
+      for24hrs: 60
+      for30Days: 3600
+
+---
+spring:
+  profiles: integration
+dynamo:
+  details:
+    tableName: "TokenCounter"
+    region: "us-west-2"
+    accessKey:
+    secretKey:
+profile:
+  counter:
+    ttl:
+      for24hrs: 60
+      for30Days: 3600
+
