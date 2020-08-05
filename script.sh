@@ -9,3 +9,5 @@ aws dynamodb --endpoint-url http://localhost:8042 create-table \
   --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
 
 aws dynamodb --endpoint-url http://localhost:8042 update-time-to-live --table-name TokenCounter --time-to-live-specification "Enabled=true, AttributeName=ttl"
+
+aws dynamodb --endpoint-url http://localhost:8042 scan --table-name TokenCounter

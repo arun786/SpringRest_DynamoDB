@@ -6,6 +6,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * TokenCounter has composite key which consists of
@@ -25,6 +26,7 @@ import lombok.Setter;
 @DynamoDBTable(tableName = "TokenCounter")
 @Getter
 @Setter
+@ToString
 public class ProfileCounter {
     @DynamoDBHashKey(attributeName = "actorId")
     private String actorId;
@@ -32,4 +34,6 @@ public class ProfileCounter {
     private String duration;
     @DynamoDBAttribute(attributeName = "count")
     private int count;
+    @DynamoDBAttribute(attributeName = "ttl")
+    private long ttl;
 }

@@ -1,0 +1,44 @@
+{
+  "properties": [
+    {
+      "name": "dynamo.details.tableName",
+      "type": "java.lang.String",
+      "description": "Description for dynamo.details.tableName."
+    },
+    {
+      "name": "dynamo.details.region",
+      "type": "java.lang.String",
+      "description": "Description for dynamo.details.region."
+    },
+    {
+      "name": "dynamo.details.endPoint",
+      "type": "java.lang.String",
+      "description": "Description for dynamo.details.endPoint."
+    },
+    {
+      "name": "dynamo.details.maxRetry",
+      "type": "java.lang.String",
+      "description": "Description for dynamo.details.maxRetry."
+    },
+    {
+      "name": "dynamo.details.accessKey",
+      "type": "java.lang.String",
+      "description": "Description for dynamo.details.accessKey."
+    },
+    {
+      "name": "dynamo.details.secretKey",
+      "type": "java.lang.String",
+      "description": "Description for dynamo.details.secretKey."
+    },
+    {
+      "name": "profile.counter.ttl.for24hrs",
+      "type": "java.lang.String",
+      "description": "Description for profile.counter.ttl.for24hrs."
+    },
+    {
+      "name": "profile.counter.ttl.for30Days",
+      "type": "java.lang.String",
+      "description": "Description for profile.counter.ttl.for30Days."
+    }
+  ]
+}
