@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    active: integration
+    active: local
 
 ---
 
@@ -16,6 +16,8 @@ dynamo:
     region: "us-west-1"
     endPoint: "http://localhost:8042"
     maxRetry: 3
+    accessKey:
+    secretKey:
 profile:
   counter:
     ttl:

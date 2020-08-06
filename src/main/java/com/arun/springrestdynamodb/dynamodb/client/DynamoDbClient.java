@@ -43,7 +43,11 @@ public class DynamoDbClient {
         /**
          * For local dynamo db table, we require the end point and the region. Credentials are not required for Local Dynamo DB table
          */
+        BasicAWSCredentials basicAWSCredentials = new BasicAWSCredentials(dynamoDBConfig.getAccessKey(), dynamoDBConfig.getSecretKey());
+
+        AWSStaticCredentialsProvider awsStaticCredentialsProvider = new AWSStaticCredentialsProvider(basicAWSCredentials);
         AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
+                .withCredentials(awsStaticCredentialsProvider)
                 .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(dynamoDBConfig.getEndPoint(), dynamoDBConfig.getRegion()))
                 .build();
         DynamoDBMapperConfig mapperConfig = DynamoDBMapperConfig.builder()
