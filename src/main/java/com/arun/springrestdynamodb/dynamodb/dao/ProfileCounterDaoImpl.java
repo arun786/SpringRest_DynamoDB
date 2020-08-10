@@ -2,6 +2,7 @@ package com.arun.springrestdynamodb.dynamodb.dao;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.TransactionWriteRequest;
 import com.arun.springrestdynamodb.dynamodb.model.ProfileCounter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -46,5 +47,10 @@ public class ProfileCounterDaoImpl implements ProfileCounterDao {
         dynamoDBQueryExpression.withHashKeyValues(profileCounter);
 
         return dynamoDBMapper.query(ProfileCounter.class, dynamoDBQueryExpression);
+    }
+
+
+    public void saveTransactionToDynamoDB(TransactionWriteRequest transactionWriteRequest) {
+        dynamoDBMapper.transactionWrite(transactionWriteRequest);
     }
 }
