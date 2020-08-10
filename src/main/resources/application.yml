@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    active: local
+    active: integration
 
 ---
 
@@ -13,11 +13,11 @@ spring:
 dynamo:
   details:
     tableName: "TokenCounter"
-    region: "us-west-1"
+    region: "us-west-2"
     endPoint: "http://localhost:8042"
     maxRetry: 3
-    accessKey:
-    secretKey:
+    accessKey: abc
+    secretKey: def
 profile:
   counter:
     ttl:

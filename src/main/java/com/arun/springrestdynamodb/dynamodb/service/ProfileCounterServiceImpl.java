@@ -1,5 +1,6 @@
 package com.arun.springrestdynamodb.dynamodb.service;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.TransactionWriteRequest;
 import com.arun.springrestdynamodb.dynamodb.config.TimeToLiveConfig;
 import com.arun.springrestdynamodb.dynamodb.dao.ProfileCounterDao;
 import com.arun.springrestdynamodb.dynamodb.model.ProfileCounter;
@@ -66,8 +67,12 @@ public class ProfileCounterServiceImpl implements ProfileCounterService {
             long for30Days = Long.parseLong(timeToLiveConfig.getFor30Days());
             ProfileCounter profileCounterFor30Days = setProfileCounter(actorId, profileCounts, FOR30DAYS, currentEpochTime + for30Days);
 
-            profileCounterDao.save(profileCounterFor24Hr);
-            profileCounterDao.save(profileCounterFor30Days);
+            TransactionWriteRequest transactionWriteRequest = new TransactionWriteRequest();
+            transactionWriteRequest.addPut(profileCounterFor24Hr);
+            transactionWriteRequest.addPut(profileCounterFor30Days);
+            profileCounterDao.saveTransactionToDynamoDB(transactionWriteRequest);
+//            profileCounterDao.save(profileCounterFor24Hr);
+//            profileCounterDao.save(profileCounterFor30Days);
 
         } else if (profileCounters.size() == 1) {
             //means we have record for 30days only in the table
@@ -79,9 +84,16 @@ public class ProfileCounterServiceImpl implements ProfileCounterService {
             int totalCount = profileCounts + profileCounter.getCount();
             profileCounter.setCount(totalCount);
 
-            profileCounterDao.save(profileCounterFor24Hrs);
-            profileCounterDao.save(profileCounter);
+            TransactionWriteRequest transactionWriteRequest = new TransactionWriteRequest();
+            transactionWriteRequest.addPut(profileCounterFor24Hrs);
+            transactionWriteRequest.addUpdate(profileCounter);
+            profileCounterDao.saveTransactionToDynamoDB(transactionWriteRequest);
+
+//            profileCounterDao.save(profileCounterFor24Hrs);
+//            profileCounterDao.save(profileCounter);
         } else {
+
+            TransactionWriteRequest transactionWriteRequest = new TransactionWriteRequest();
             profileCounters.forEach(profileCounter -> {
                 //in this case both the 24 hrs record is present and
                 //30 days record is present and we need to update the total count
@@ -89,7 +101,9 @@ public class ProfileCounterServiceImpl implements ProfileCounterService {
                 profileCounter.setCount(totalCount);
                 //save to the dynamo db table.
                 profileCounterDao.save(profileCounter);
+                transactionWriteRequest.addUpdate(profileCounter);
             });
+            profileCounterDao.saveTransactionToDynamoDB(transactionWriteRequest);
         }
     }
 
