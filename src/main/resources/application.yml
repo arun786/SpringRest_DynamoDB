@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    active: integration
+    active: local
 
 ---
 
@@ -31,8 +31,8 @@ dynamo:
   details:
     tableName: "TokenCounter"
     region: "us-west-2"
-    accessKey:
-    secretKey:
+    accessKey: AKIAW3Z4C3AFY7HYQH73
+    secretKey: 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
 profile:
   counter:
     ttl:
